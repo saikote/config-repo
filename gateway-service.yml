@@ -1,0 +1,35 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-service
+
+  cloud:
+    gateway:
+        routes:
+          - id: order-service-route
+            uri: lb://ORDER-SERVICE
+            predicates:
+              - Path=/order/**
+          - id: customer-service-route
+            uri: lb://CUSTOMER-SERVICE
+            predicates:
+              - Path=/customer/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
