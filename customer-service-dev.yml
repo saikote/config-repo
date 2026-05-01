@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: customer-service
+  config:
+    import: optional:configserver:http://localhost:8888
+  profiles:
+    active: dev
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+datasource:
+  url: jdbc:oracle:thin:@localhost:1521:XE
+  username: system
+  password: admin
+  driver-class-name: oracle.jdbc.OracleDriver
+
+  jpa:
+    database-platform: org.hibernate.dialect.OracleDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
