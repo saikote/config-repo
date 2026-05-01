@@ -1,9 +1,13 @@
-management:
-  endpoints:
-    web:
-      exposure:
-        include: refresh
+server:
+  port: 8082
+
 spring:
+  application:
+    name: customer-service
+
+  config:
+    import: optional:configserver:http://localhost:8081
+
   datasource:
     url: jdbc:oracle:thin:@localhost:1521:XE
     username: system
@@ -15,3 +19,16 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
